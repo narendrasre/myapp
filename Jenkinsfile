@@ -1,16 +1,14 @@
 pipeline{
   agent any
   stages{
-    stage('Checkout') {
+    stage('Check Kubectl') {
       steps {
-        echo "Checkout successful"
+        sh 'kubectl client --version'
       }
     }
-    stage('Kubernetes') {
+    stage('Check Helm') {
       steps {
-        sh '''
-        kubectl get pods -n dev
-        '''
+        sh 'helm version'
       }
     }
   }
