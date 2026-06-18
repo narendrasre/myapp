@@ -3,14 +3,38 @@ pipeline{
   stages{
     stage('Checkout') {
       steps {
-        echo "Repository Checked out automatically"
+        echo "Repository Checked out successfull"
       }
     }
-    stage('Running Script') {
+    stage('Build') {
       steps {
         sh '''
-        chmod +x app.sh
-        ./app.sh
+        echo "Building application..."
+        sleep 5
+        '''
+      }
+    }
+    stage('Test') {
+      steps {
+        sh '''
+        echo "Running Tests..."
+        sleep 5
+        '''
+      }
+    }
+    stage('Package') {
+      steps {
+        sh '''
+        echo "Packaging application..."
+        sleep 5
+        '''
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh '''
+        echo "Deploying application..."
+        sleep 5
         '''
       }
     }
@@ -18,5 +42,6 @@ pipeline{
   post {
     success { echo "Build Successful" }
     failure { echo "Build Failed" }
+    always { echo "Cleanup Activities Completed" }
   }
 }
