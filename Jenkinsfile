@@ -1,9 +1,16 @@
 pipeline{
   agent any
   stages{
-    stage('Checking Docker') {
+    stage('Checkout') {
       steps {
-        sh 'docker version'
+        echo "Checkout successful"
+      }
+    }
+    stage('Kubernetes') {
+      steps {
+        sh '''
+        kubectl get pods -n dev
+        '''
       }
     }
   }
