@@ -3,12 +3,12 @@ pipeline{
   stages{
     stage('Check Kubectl') {
       steps {
-        sh 'kubectl'
+        sh 'kubectl get pods -A'
       }
     }
     stage('Check Helm') {
       steps {
-        sh 'helm version'
+        sh 'helm list -A'
       }
     }
   }
