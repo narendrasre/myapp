@@ -18,7 +18,7 @@ pipeline{
       steps {
         sh '''
         echo "Running Tests..."
-        sleep 5
+        exit 1
         '''
       }
     }
