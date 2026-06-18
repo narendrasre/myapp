@@ -1,41 +1,9 @@
 pipeline{
   agent any
   stages{
-    stage('Checkout') {
+    stage('Checking Docker') {
       steps {
-        echo "Repository Checked out successfull"
-      }
-    }
-    stage('Build') {
-      steps {
-        sh '''
-        echo "Building application..."
-        sleep 5
-        '''
-      }
-    }
-    stage('Test') {
-      steps {
-        sh '''
-        echo "Running Tests..."
-        exit 1
-        '''
-      }
-    }
-    stage('Package') {
-      steps {
-        sh '''
-        echo "Packaging application..."
-        sleep 5
-        '''
-      }
-    }
-    stage('Deploy') {
-      steps {
-        sh '''
-        echo "Deploying application..."
-        sleep 5
-        '''
+        sh 'docker version'
       }
     }
   }
