@@ -3,7 +3,7 @@ pipeline{
   stages{
     stage('Check Kubectl') {
       steps {
-        sh 'kubectl client --version'
+        sh 'kubectl'
       }
     }
     stage('Check Helm') {
