@@ -1,7 +1,7 @@
 pipeline{
   agent any
   parameters {
-    string { name: 'IMAGE_TAG', defaultValue: '1.0.0', description: 'Docker Image Tag' }
+    string ( name: 'IMAGE_TAG', defaultValue: '1.0.0', description: 'Docker Image Tag' )
   }
   environment { REPO_NAME = "narendra115c/demo-app" RELEASE_NAME = "demo-app"  NAMESPACE: "demo" }
   stages{
