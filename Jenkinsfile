@@ -3,7 +3,7 @@ pipeline{
   parameters {
     string ( name: 'IMAGE_TAG', defaultValue: '1.0.0', description: 'Docker Image Tag' )
   }
-  environment { REPO_NAME = "narendra115c/demo-app" RELEASE_NAME = "demo-app"  NAMESPACE: "demo" }
+  environment { REPO_NAME = "narendra115c/demo-app" RELEASE_NAME = "demo-app"  NAMESPACE = "demo" }
   stages{
     stage('Checkout') {
       steps {
@@ -13,7 +13,7 @@ pipeline{
     stage('Build Image') {
       steps {
         sh '''
-        docker build image -t ${REPO_NAME}:${params.IMAGE_TAG} .
+        docker build -t ${REPO_NAME}:${params.IMAGE_TAG} .
         '''
       }
     }
@@ -21,7 +21,7 @@ pipeline{
       steps {
         withCredentials([
           usernamePassword(
-            credentialId: 'DockerHub',
+            credentialsId: 'DockerHub',
             usernameVariable: 'DOCKER_USER',
             passwordVariable: 'DOCKER_PASS'
           )
@@ -42,12 +42,11 @@ pipeline{
     stage('Deploy') {
       steps {
         sh """
-        helm create demo-app
-        helm upgrade --install ${RELEASE_NAME} charts/demo-app \
+        helm upgrade --install ${RELEASE_NAME} demo-app \
           --namespace ${NAMESPACE} \
           --create-namespace \
           --set image.repository=${REPO_NAME} \
-          --set image.tag=${IMAGE_TAG}
+          --set image.tag=${params.IMAGE_TAG}
           """
       }
     }
